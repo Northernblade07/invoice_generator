@@ -1,33 +1,29 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { signUp } from '../lib/api';
 import { Input } from '@/components/ui/input';
 import Eclipse from '../components/Eclipse';
 
 const RegisterPage = () => {
+    const navigate = useNavigate();
   const [signupData, setSignupData] = useState({
-    username: '',
+    name: '',
     email: '',
-    password: ''
+    password: '',
   });
 
   const queryClient = useQueryClient();
 
   const { mutate: signupMutation, isPending } = useMutation({
     mutationFn: signUp,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['authUser'] })
-  });
+    onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['authUser'] })
+        navigate('/login')
+}});
 
-  const handleSignup = (e: React.FormEvent) => {
+  const handleSignup=(e:React.FormEvent)=>{
     e.preventDefault();
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(signupData.email)) {
-      alert('Please enter a valid email');
-      return;
-    }
-
     signupMutation(signupData);
   };
 
@@ -51,9 +47,9 @@ const RegisterPage = () => {
                   <Input
                     type="text"
                     placeholder="John Doe"
-                    className="bg-[#202020] w-full h-[60px]"
-                    value={signupData.username}
-                    onChange={(e) => setSignupData({ ...signupData, username: e.target.value })}
+                    className="bg-[#202020] w-full h-[60px] text-white"
+                    value={signupData.name}
+                    onChange={(e) => setSignupData({ ...signupData,name: e.target.value })}
                     required
                   />
                 </div>
@@ -65,7 +61,7 @@ const RegisterPage = () => {
                   <Input
                     type="email"
                     placeholder="email@example.com"
-                    className="bg-[#202020] w-full h-[60px]"
+                    className="bg-[#202020] w-full h-[60px] text-white"
                     value={signupData.email}
                     onChange={(e) => setSignupData({ ...signupData, email: e.target.value })}
                     required
@@ -79,7 +75,7 @@ const RegisterPage = () => {
                   <Input
                     type="password"
                     placeholder="••••••••"
-                    className="bg-[#202020] w-full h-[60px]"
+                    className="bg-[#202020] w-full h-[60px] "
                     value={signupData.password}
                     onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
                     required
@@ -91,7 +87,6 @@ const RegisterPage = () => {
                 <button
                   className="btn bg-[#303030] text-[#CCF575] px-4 py-2 rounded-md"
                   type="submit"
-                  disabled={isPending}
                 >
                   {isPending ? 'Loading...' : 'Register'}
                 </button>
@@ -119,8 +114,8 @@ const RegisterPage = () => {
       </div>
 
       <Eclipse color="#CCF575" blur="300px" className="absolute bottom-0 left-0 h-55 w-64" />
-      <Eclipse color="#CCF575" blur="200px" className="z-0 absolute top-0 left-1/2 h-55 w-64" />
-      <Eclipse color="#4F59A8" blur="100px" className="absolute top-0 right-0 h-55 w-64" />
+      <Eclipse color="#CCF575" blur="300px" className="absolute top-0 left-1/2 h-55 w-64" />
+      <Eclipse color="#4F59A8" blur="300px" className="absolute top-0 right-0 h-55 w-64" />
     </div>
   );
 };

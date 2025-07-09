@@ -3,7 +3,7 @@ import { Input } from '@/components/ui/input'
 import { login } from '@/lib/api'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import React, { useState } from 'react'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import {
   Carousel,
   CarouselContent,
@@ -12,6 +12,7 @@ import {
 
 const LoginPage = () => {
 
+  const navigate = useNavigate()
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -22,6 +23,7 @@ const LoginPage = () => {
     mutationFn: login,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['authUser'] })
+      navigate('/product')
     }
   })
 
@@ -100,7 +102,7 @@ const LoginPage = () => {
                     <span className='loading loading-spinner loading-xs'>
                       loading...
                     </span>
-                  ) : "Register"}
+                  ) : "Login"}
                 </button>
 
                 <div className='text-center mt-4'>
@@ -115,7 +117,7 @@ const LoginPage = () => {
         
       </div>
 
-      <Eclipse color='#4F59A8' blur='200px' className={'sticky z-0 h-57 rotate-90 w-59  top-0 left-1/2 '} />
+      <Eclipse color='#4F59A8' blur='200px' className={'absolute  h-57 rotate-90 w-59  top-0 right-0'} />
       <Eclipse color='#CCF575' blur='300px' className={'absolute  bottom-0 left-0 h-55 w-64'} />
       {/* <Eclipse color='#CCF575' blur='200px' className={'z-0 absolute top-0 left-1/2 h-55 w-64 '} /> */}
     </div>

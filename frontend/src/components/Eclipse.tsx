@@ -1,9 +1,21 @@
-import React from 'react'
+import React from 'react';
 
-const Eclipse = ({className,blur,color}:{className:string,blur:string,color:string}) => {
-  return (
-    <div className={`bg-[${color}] rounded-full  blur-[${blur}] ${className} `}></div>
-  )
+interface EclipseProps {
+  className?: string;
+  blur?: string;
+  color?: string;
 }
 
-export default Eclipse
+const Eclipse: React.FC<EclipseProps> = ({ className = '', blur = '300px', color = '#FF00FF'}) => {
+  return (
+    <div
+      className={`rounded-full ${className}`}
+      style={{
+        backgroundColor: color,
+        filter: `blur(${blur})`,
+      }}
+    ></div>
+  );
+};
+
+export default Eclipse;
