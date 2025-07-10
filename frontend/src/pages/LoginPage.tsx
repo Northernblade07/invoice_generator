@@ -4,11 +4,7 @@ import { login } from '@/lib/api'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router'
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel"
+import ImageSlider from '@/components/ImageSlider'
 
 const LoginPage = () => {
 
@@ -21,7 +17,9 @@ const LoginPage = () => {
 
   const { mutate: loginMutate, isPending } = useMutation({
     mutationFn: login,
-    onSuccess: () => {
+    onSuccess: (data) => {
+      console.log(data)
+      localStorage.setItem("token",data.token)
       queryClient.invalidateQueries({ queryKey: ['authUser'] })
       navigate('/product')
     }
@@ -34,23 +32,12 @@ const LoginPage = () => {
   return (
     <div className='relative z-0 bg-[#141414] h-screen flex items-center justify-center p-4 sm:p-6 md:p-8'>
       <div className=' flex flex-col lg:flex-row w-full max-w-screen mx-auto  rounded-xl  overflow-hidden '>
-        {/* right side */}
+        {/* left side */}
         <div className='hidden lg:flex lg:w-1/2  items-center justify-center'>
           {/* <img src="/signup.png" alt="signup image" className='object-cover overflow-hidden absolute right-[11px] rounded-bl-[60px] rounded-tl-[60px] ' height={773} width={830} /> */}
-          <Carousel opts={{
-    align: "start",
-    loop: true,
-  }}>
-  <CarouselContent className='flex gap-2'>
-    <CarouselItem className='h-55 w-20'><img src="/signup.png" alt="" className='object-cover'/></CarouselItem>
-    <CarouselItem className='h-55 w-10'><img src="/signup.png" alt="" /></CarouselItem>
-    {/* <CarouselItem></CarouselItem> */}
-  </CarouselContent>
-  {/* <CarouselPrevious /> */}
-  {/* <CarouselNext /> */}
-</Carousel>
+          <ImageSlider/>
         </div>
-        {/* left side  */}
+        {/* right side  */}
         <div className='flex items-start w-[630px] lg:w-1/2 sm:p-4 flex-col gap' >
 
           <div className=' h-[579px] w-[565px]'>
@@ -78,7 +65,7 @@ const LoginPage = () => {
                       Email
                     </span>
                   </label>
-                  <Input type="text" placeholder='enter your email' className='input input-bordered bg-[#202020] w-full h-[60px]' value={loginData.email} onChange={(e) => setLoginData({
+                  <Input type="text" placeholder='enter your email' className='input text-white input-bordered bg-[#202020] w-full h-[60px]' value={loginData.email} onChange={(e) => setLoginData({
                     ...loginData, email: e.target.value
                   })} required />
                 </div>
@@ -89,7 +76,7 @@ const LoginPage = () => {
                       Password
                     </span>
                   </label>
-                  <Input type="password" placeholder='enter your password' className='input input-bordered bg-[#202020] w-full h-[60px]' value={loginData.password} onChange={(e) => setLoginData({
+                  <Input type="password" placeholder='enter your password' className='input text-white input-bordered bg-[#202020] w-full h-[60px]' value={loginData.password} onChange={(e) => setLoginData({
                     ...loginData, password: e.target.value
                   })} required />
                 </div>
@@ -106,7 +93,7 @@ const LoginPage = () => {
                 </button>
 
                 <div className='text-center mt-4'>
-                  <Link className='text-[] hover:underline' to={'/login'}><p className='text-sm font-serif text-[#B8B8B8]'>Already have an account?{" "}</p> </Link>
+                  <Link className='text-[] hover:underline' to={'/register'}><p className='text-sm font-serif text-[#B8B8B8]'>Don't have an account?{" "} Create One</p> </Link>
                 </div>
               </div>
             </form>

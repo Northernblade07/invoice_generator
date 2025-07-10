@@ -37,7 +37,6 @@ export const getProducts = async (req: Request, res: Response) => {
   if (!req.user) {
     return res.status(401).json({ message: "Unauthorized: No user found" });
   }
-
   try {
     const products = await Product.find({ user: req.user._id });
 

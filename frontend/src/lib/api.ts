@@ -16,7 +16,7 @@ export const logout =async()=>{
 }
 
 
-export const addProduct = async (productData: { name: string; qty:number; rate: number }) => {
+export const addProduct = async (productData: { name: string; quantity:number; rate: number }) => {
   const response = await axiosInstance.post("/products/add", productData);
   return response.data;
 };
@@ -26,3 +26,26 @@ export const getProducts = async () => {
   return response.data.products;
 };
 
+export const generateInvoice = async(products: any[]) => {
+  const response = await axiosInstance.post(
+    "/invoice/generate",   
+    { products },
+    {
+      responseType: "blob", 
+    }
+  );
+  return response.data;
+};
+
+
+export const getAuthUser = async()=>{
+    try {
+        const res = await axiosInstance.get("/auth/me");
+        console.log(res)
+        return res.data.user
+        
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}
