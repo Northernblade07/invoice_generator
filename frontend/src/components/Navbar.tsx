@@ -3,6 +3,7 @@ import { logout } from '@/lib/api'
 import toast from 'react-hot-toast'
 import { Button } from './ui/button'
 import { useLocation, useNavigate } from 'react-router'
+import Logo from './Logo'
 const Navbar = () => {
  const navigate = useNavigate();
  const location = useLocation();
@@ -30,8 +31,10 @@ const Navbar = () => {
         <div className='container mx-auto px-4 sm:px-6 lg:px-8'>
             <div className='flex justify-end '>
 
-<div className='h-12 w-[141px] flex gap-4'>
-<div className='bg-white w-10 h-10'></div>
+<div className='h-12 w-[141px] flex items-center gap-4'>
+<div className='w-10 h-[35px]'>
+  <Logo width={35} height={35}/>
+</div>
                    <div>
                     <p className='text-white text-2xl'>
                        levitation

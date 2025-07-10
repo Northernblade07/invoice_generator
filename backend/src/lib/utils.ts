@@ -309,30 +309,14 @@ export const generatePDFBuffer = async (products: Product[], user: User): Promis
           </tr>
         </thead>
         <tbody>
-          <tr class="table-row">
-            <td>{Product 1}</td>
-            <td>32</td>
-            <td>120</td>
-            <td>USD 100</td>
-          </tr>
-          <tr>
-            <td>{Product 2}</td>
-            <td>32</td>
-            <td>120</td>
-            <td>USD 100</td>
-          </tr>
-          <tr>
-            <td>{Product 3}</td>
-            <td>32</td>
-            <td>120</td>
-            <td>USD 100</td>
-          </tr>
-          <tr>
-            <td>{Product 4}</td>
-            <td>32</td>
-            <td>120</td>
-            <td>USD 100</td>
-          </tr>
+  ${products.map((p, index) => `
+            <tr class="table-row">
+              <td>${p.name}</td>
+              <td>${p.quantity}</td>
+              <td>${p.rate.toFixed(2)}</td>
+              <td>₹ ${p.total.toFixed(2)}</td>
+            </tr>
+          `).join('')}
         </tbody>
       </table>
 
@@ -340,15 +324,15 @@ export const generatePDFBuffer = async (products: Product[], user: User): Promis
         <div class="summary-box">
           <div>
             <span>Total Charges</span>
-            <span>$400</span>
+            <span>${subtotal}</span>
           </div>
           <div>
             <span>GST (18%)</span>
-            <span>$72</span>
+            <span>${gstTotal}</span>
           </div>
           <div class="total">
             <span>Total Amount</span>
-            <span style="color:#0046be;">₹ 472</span>
+            <span style="color:#0046be;">₹ ${grandTotal}</span>
           </div>
         </div>
       </div>

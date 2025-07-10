@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router'
 import ImageSlider from '@/components/ImageSlider'
+import Logo from '@/components/Logo'
 
 const LoginPage = () => {
 
@@ -42,8 +43,10 @@ const LoginPage = () => {
 
           <div className=' h-[579px] w-[565px]'>
             <form onSubmit={handleLogin} className='flex flex-col gap-3'>
-              <div className='h-12 w-[141px] flex gap-4'>
-                <div className='bg-white w-10 h-10'></div>
+              <div className='h-19 w-[215px] flex gap-4 items-center'>
+                <div className='h-15 w-15'>
+                  <Logo width={60} height={60}/>
+                </div>
                 <div>
                   <p className='text-white text-2xl'>
                     levitation
