@@ -164,7 +164,7 @@ export default function ProductPage() {
         Generate PDF invoice
         </Button>
 
-         <Eclipse color='#4F59A8' blur='200px' className={'absolute  h-57 rotate-90 w-59  top-0 text-center z-10'} />
+         <Eclipse color='#4F59A8' blur='150px' className={'absolute  h-49 rotate-90 w-50 top-0 text-center z-10'} />
     </div>
   );
 }
