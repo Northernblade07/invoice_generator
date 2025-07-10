@@ -1,4 +1,11 @@
 import axiosInstance from "./axios";
+export interface Product {
+  name: string;
+  quantity: number;
+  rate: number;
+  total?: number;
+  gst?: number;
+}
 
 export const signUp = async(signupData:{name:string , email:string , password:string}) => {
     const res = await axiosInstance.post("/auth/signup",signupData)
@@ -26,17 +33,16 @@ export const getProducts = async () => {
   return response.data.products;
 };
 
-export const generateInvoice = async(products: any[]) => {
-  const response = await axiosInstance.post(
-    "/invoice/generate",   
+export const generateInvoice = async (products: Product[]): Promise<Blob> => {
+  const response = await axiosInstance.post<Blob>(
+    "/invoice/generate",
     { products },
     {
-      responseType: "blob", 
+      responseType: "blob",
     }
   );
   return response.data;
 };
-
 
 export const getAuthUser = async()=>{
     try {

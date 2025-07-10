@@ -1,7 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { useNavigate } from "react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { addProduct, generateInvoice, getProducts } from "@/lib/api";
 import { ArrowDown, ArrowUp, PlusCircleIcon } from "lucide-react";
@@ -34,8 +33,12 @@ export default function ProductPage() {
     queryFn: getProducts,
   });
 
-  const subtotal = allProducts.reduce((acc, item) => acc + (item.total ?? 0), 0);
-  const totalWithGST = allProducts.reduce((acc, item) => acc + ((item.total ?? 0) + (item.gst ?? 0)), 0);
+  const subtotal = allProducts.reduce((acc: number, item: Product) => acc + (item.total ?? 0), 0);
+
+const totalWithGST = allProducts.reduce(
+  (acc: number, item: Product) => acc + (item.total ?? 0) + (item.gst ?? 0),
+  0
+);
 
   const createProduct = (e: React.FormEvent) => {
     e.preventDefault();

@@ -1,4 +1,3 @@
-import React from 'react';
 
 const Logo = ({width , height}:{width:number,height:number}) => {
   return (

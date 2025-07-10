@@ -22,6 +22,7 @@ const ImageSlider = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
+      console.log(currentIndex)
       setCurrentIndex((prevIndex) => {
         const nextIndex = (prevIndex + 1) % images.length;
         scrollToIndex(nextIndex);

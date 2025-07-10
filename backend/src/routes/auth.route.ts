@@ -1,7 +1,7 @@
 import express from "express";
 import { login, logout, register } from "../controllers/auth.controller";
 import { verifyToken } from "../middleware/authmiddleware";
-export const router = express.Router();
+const router = express.Router();
 router.post("/signup", register);
 router.post("/login", login);
 router.post("/logout",logout);
