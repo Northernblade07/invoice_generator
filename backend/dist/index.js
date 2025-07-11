@@ -4,8 +4,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const dotenv_1 = __importDefault(require("dotenv"));
+const cors_1 = __importDefault(require("cors"));
+const db_1 = require("./lib/db");
+const auth_route_1 = __importDefault(require("./routes/auth.route"));
+const product_route_1 = __importDefault(require("./routes/product.route"));
+const invoice_route_1 = __importDefault(require("./routes/invoice.route"));
+dotenv_1.default.config();
 const app = (0, express_1.default)();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
+const FRONTEND_URL = "http://localhost:5173";
+app.use((0, cors_1.default)({
+    origin: FRONTEND_URL,
+    credentials: true,
+}));
+// Explicitly handle OPTIONS (preflight) requests
+app.use(express_1.default.json());
+// Connect DB
+(0, db_1.connectDb)();
+// Routes
+app.use('/api/auth', auth_route_1.default);
+app.use('/api/products', product_route_1.default);
+app.use('/api/invoice', invoice_route_1.default);
 app.listen(PORT, () => {
-    console.log(`server running on port ${PORT}`);
+    console.log(`✅ Server running on http://localhost:${PORT}`);
 });
