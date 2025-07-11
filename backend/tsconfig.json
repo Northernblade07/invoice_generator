@@ -111,5 +111,5 @@
     // "typeRoots": ["./node_modules/@types"] ,                         /* Skip type checking all .d.ts files. */
     "skipLibCheck": true,  
   },
-  "include": ["src/**/*"]
+  "include": ["src"]
 }
