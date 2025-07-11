@@ -10,7 +10,7 @@ const Navbar = () => {
 
      const isSignupPage = location.pathname?.startsWith("/register");
       const isLoginPage= location.pathname?.startsWith("/login");
-      const isProductPage =location.pathname?.startsWith("/product");
+      const isProductPage =location.pathname?.startsWith("/");
   
     const queryClient = useQueryClient();
 

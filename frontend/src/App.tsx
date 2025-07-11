@@ -20,9 +20,9 @@ const App = () => {
     <div className='min-h-screen'>
   <Navbar/>
   <Routes>
-    <Route element={!isAuthenticate?<RegisterPage/>:<Navigate to={'/product'}/>} path='/register'/>
-     <Route element={!isAuthenticate?<LoginPage/>:<Navigate to={'/product'}/>} path='/login'/>
-      <Route element={isAuthenticate?<ProductPage/>:<Navigate to={'/login'}/>} path='/product'/>
+    <Route element={!isAuthenticate?<RegisterPage/>:<Navigate to={'/'}/>} path='/register'/>
+     <Route element={!isAuthenticate?<LoginPage/>:<Navigate to={'/'}/>} path='/login'/>
+      <Route element={isAuthenticate?<ProductPage/>:<Navigate to={'/login'}/>} path='/'/>
        {/* <Route element={<RegisterPage/>} path='/register'/> */}
 
   </Routes>

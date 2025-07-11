@@ -22,7 +22,7 @@ const LoginPage = () => {
       console.log(data)
       localStorage.setItem("token",data.token)
       queryClient.invalidateQueries({ queryKey: ['authUser'] })
-      navigate('/product')
+      navigate('/')
     }
   })
 
