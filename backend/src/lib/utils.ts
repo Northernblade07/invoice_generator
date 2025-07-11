@@ -14,10 +14,12 @@ interface User {
 }
 
 export const generatePDFBuffer = async (products: Product[], user: User): Promise<Buffer> => {
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-  });
+ const browser = await puppeteer.launch({
+  headless: true,
+  executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium',
+  args: ['--no-sandbox', '--disable-setuid-sandbox'],
+});
+
 
   const page = await browser.newPage();
   const currentDate = new Date().toLocaleDateString('en-GB');
