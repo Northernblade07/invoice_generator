@@ -12,11 +12,13 @@ const product_route_1 = __importDefault(require("./routes/product.route"));
 const invoice_route_1 = __importDefault(require("./routes/invoice.route"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
-const PORT = process.env.PORT || 5000;
-const FRONTEND_URL = "http://localhost:5173";
+const PORT = process.env.PORT;
+const allowedOrigins = [process.env.FRONTEND_URL || 'http://localhost:5173'];
 app.use((0, cors_1.default)({
-    origin: FRONTEND_URL,
+    origin: allowedOrigins,
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 // Explicitly handle OPTIONS (preflight) requests
 app.use(express_1.default.json());
@@ -27,5 +29,5 @@ app.use('/api/auth', auth_route_1.default);
 app.use('/api/products', product_route_1.default);
 app.use('/api/invoice', invoice_route_1.default);
 app.listen(PORT, () => {
-    console.log(`✅ Server running on http://localhost:${PORT}`);
+    console.log(`✅ Server running on ${PORT}`);
 });
